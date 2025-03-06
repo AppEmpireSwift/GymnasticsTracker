@@ -53,7 +53,7 @@ namespace AddEntry
             _isSelected = isSelected;
             UpdateVisualState();
         }
-
+        
         private void UpdateVisualState()
         {
             if (_buttonImage != null)

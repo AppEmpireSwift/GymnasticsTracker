@@ -1,17 +1,21 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using EntryLogic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace SaveSystem
 {
     public class DataSaver
     {
-        private readonly string _savePath = Path.Combine(Application.persistentDataPath, "Items");
+        private readonly string _savePath = Path.Combine(Application.persistentDataPath, "Entries");
 
-        /*public void SaveData(List<ItemData> datas)
+        public void SaveData(List<EntryData> datas)
         {
             try
             {
-                ItemDataWrapper wrapper = new ItemDataWrapper(datas);
+                DataWrapper wrapper = new DataWrapper(datas);
                 string jsonData = JsonConvert.SerializeObject(wrapper, Formatting.Indented);
 
                 File.WriteAllText(_savePath, jsonData);
@@ -23,7 +27,7 @@ namespace SaveSystem
             }
         }
 
-        public List<ItemData> LoadData()
+        public List<EntryData> LoadData()
         {
             try
             {
@@ -34,27 +38,26 @@ namespace SaveSystem
 
                 string jsonData = File.ReadAllText(_savePath);
 
-                ItemDataWrapper wrapper = JsonConvert.DeserializeObject<ItemDataWrapper>(jsonData);
+                DataWrapper wrapper = JsonConvert.DeserializeObject<DataWrapper>(jsonData);
 
-                return wrapper?.ItemDatas ?? new List<ItemData>();
+                return wrapper?.EntryDatas ?? new List<EntryData>();
             }
             catch (Exception e)
             {
                 Debug.LogError($"Error loading item data: {e.Message}");
-                return new List<ItemData>();
+                return new List<EntryData>();
             }
         }
     }
 
     [Serializable]
-    public class ItemDataWrapper
+    public class DataWrapper
     {
-        public List<ItemData> ItemDatas;
+        public List<EntryData> EntryDatas;
 
-        public ItemDataWrapper(List<ItemData> itemDatas)
+        public DataWrapper(List<EntryData> entryDatas)
         {
-            ItemDatas = itemDatas;
+            EntryDatas = entryDatas;
         }
-    }*/
     }
 }

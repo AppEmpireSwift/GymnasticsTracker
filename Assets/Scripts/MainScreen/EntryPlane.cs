@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using DG.Tweening;
 using EntryLogic;
 using TMPro;
 using UnityEngine;
@@ -37,9 +39,20 @@ namespace MainScreen
             gameObject.SetActive(IsActive);
             EntryData = data;
 
-            _progressImage.fillAmount = EntryData.Progress / 10f;
-            _percentageText.text = $"{EntryData.Progress * 10}%";
+            UpdatePercentages();
             _nameText.text = EntryData.Name;
+        }
+
+        public void UpdatePercentages()
+        {
+            float maxProgressDataPercentage = EntryData.ProgressDatas.Any()
+                ? EntryData.ProgressDatas.Max(plane => plane.Progress)
+                : 0f;
+
+            float finalPercentage = Mathf.Max(maxProgressDataPercentage, EntryData.Progress);
+
+            _progressImage.fillAmount = finalPercentage / 10f;
+            _percentageText.text = $"{finalPercentage * 10}%";
         }
 
         public void Disable()
@@ -55,7 +68,6 @@ namespace MainScreen
             _progressImage.fillAmount = 0f;
             _percentageText.text = string.Empty;
             _nameText.text = string.Empty;
-            _openButton.interactable = false;
         }
 
         private void OnOpenClicked()

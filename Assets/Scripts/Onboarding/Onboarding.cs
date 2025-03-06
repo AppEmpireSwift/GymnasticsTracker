@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using MainScreen;
 using UnityEngine.UI;
 
 namespace Onboarding
@@ -11,6 +12,7 @@ namespace Onboarding
         [SerializeField] private float _animationDuration = 0.5f;
         [SerializeField] private Ease _enterEase = Ease.OutQuad;
         [SerializeField] private Ease _exitEase = Ease.InQuad;
+        [SerializeField] private MainScreenController _mainScreen;
 
         private int _currentIndex = 0;
         private CanvasGroup[] _canvasGroups;
@@ -30,6 +32,7 @@ namespace Onboarding
 
             if (PlayerPrefs.HasKey("Onboarding"))
             {
+                _mainScreen.Enable();
                 gameObject.SetActive(false);
             }
             else
@@ -67,6 +70,7 @@ namespace Onboarding
             else
             {
                 PlayerPrefs.SetInt("Onboarding", 1);
+                _mainScreen.Enable();
                 gameObject.SetActive(false);
             }
         }
